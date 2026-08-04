@@ -1,5 +1,5 @@
 FROM node:alpine3.24
-# FROM node:18-alpine3 
+# FROM node:18-alpine   3
 WORKDIR /app
 COPY package.json ./
 RUN npm install
