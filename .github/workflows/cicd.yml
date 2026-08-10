@@ -72,7 +72,7 @@ jobs:
         run: |
           docker system prune -f
           docker volume prune -f
-          
+
       - name: Run Docker Container
         run: |
           docker run -d \
@@ -80,6 +80,7 @@ jobs:
             --name nodejs-app-container \
             -e MONGODB_URI="${{ secrets.MONGODB_URI }}" \
             -e JWT_SECRET="${{ secrets.JWT_SECRET }}" \
+            -e GROQ_API_KEY="${{ secrets.GROQ_API_KEY }}" \
             -e VALID_USERNAME="${{ secrets.VALID_USERNAME }}" \
             -e VALID_PASSWORD="${{ secrets.VALID_PASSWORD }}" \
             jashwanth2253/deverecare_nodejs:latest
