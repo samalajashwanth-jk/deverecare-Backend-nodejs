@@ -67,6 +67,11 @@ jobs:
         run: |
           docker stop nodejs-app-container || true
           docker rm nodejs-app-container || true
+
+      - name: Clean Docker
+        run: |
+          docker system prune -f
+          docker volume prune -f
           
       - name: Run Docker Container
         run: |
@@ -78,3 +83,4 @@ jobs:
             -e VALID_USERNAME="${{ secrets.VALID_USERNAME }}" \
             -e VALID_PASSWORD="${{ secrets.VALID_PASSWORD }}" \
             jashwanth2253/deverecare_nodejs:latest
+    
