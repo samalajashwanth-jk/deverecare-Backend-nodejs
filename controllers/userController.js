@@ -294,10 +294,10 @@ exports.loginDetails = async (req, res) => {
   try {
     const { userName, password } = req.body;
     
-    const validUsername = "jashwanth";
-    const validPassword = "12345678";
+    // const validUsername = "jashwanth";
+    // const validPassword = "12345678";
     
-    if (userName === validUsername && password === validPassword) {
+    if (userName === process.env.validUsername && password === process.env.validPassword) {
       const token = jwt.sign(
         { userName, role: 'admin' },
         process.env.JWT_SECRET || 'your_jwt_secret_key',

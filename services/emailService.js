@@ -124,7 +124,7 @@ const sendApplicationSubmittedEmail = async (applicant) => {
   const mailOptions = {
     from: `"DeVere Care Recruitment" <${process.env.EMAIL_USER}>`,
     to: applicant.contactDetails.email,
-    subject: 'DEMO-MAIL (UNDER UAT TESTING) Application Received - DeVere Care ',
+    subject: ' Application Received - DeVere Care ',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; color: white;">
