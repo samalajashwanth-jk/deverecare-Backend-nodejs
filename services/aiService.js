@@ -202,7 +202,6 @@
 // module.exports = { parseResumeWithAI };
 // backend/services/aiService.js
 // backend/services/aiService.js
-
 const Groq = require('groq-sdk');
 require('dotenv').config();
 
