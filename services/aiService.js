@@ -206,7 +206,8 @@
 const Groq = require('groq-sdk');
 require('dotenv').config();
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+const groq = "";
+// new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 const parseFilledFormPDF = async (pdfText) => {
   const prompt = `

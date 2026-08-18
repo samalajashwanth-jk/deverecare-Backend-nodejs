@@ -297,7 +297,7 @@ exports.loginDetails = async (req, res) => {
     // const validUsername = "jashwanth";
     // const validPassword = "12345678";
     
-    if (userName === process.env.validUsername && password === process.env.validPassword) {
+    if (userName === process.env.VALID_USERNAME && password === process.env.VALID_PASSWORD) {
       const token = jwt.sign(
         { userName, role: 'admin' },
         process.env.JWT_SECRET || 'your_jwt_secret_key',
@@ -308,7 +308,7 @@ exports.loginDetails = async (req, res) => {
         success: true,
         message: "Login successful ✅",
         token: token,
-        user: { userName: validUsername, role: "admin" }
+        user: { userName: process.env.VALID_USERNAME, role: "admin" }
       });
     } else {
       return res.status(401).json({
