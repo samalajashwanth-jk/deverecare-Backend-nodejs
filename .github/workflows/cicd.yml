@@ -82,6 +82,8 @@ jobs:
             -e JWT_SECRETE="${{ secrets.JWT_SECRETE}}"\
             -e VALID_USERNAME="${{ secrets.VALID_USERNAME }}" \
             -e VALID_PASSWORD="${{ secrets.VALID_PASSWORD }}" \
+            -e EMAIL_USER="${{secrets.EMAIL_USER}}"
+            -e EMAIL_PASS="${{ secrets.EMAIL_PASS}}"
             jashwanth2253/deverecare_nodejs:latest
 
             
