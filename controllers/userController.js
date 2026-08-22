@@ -21,8 +21,10 @@ exports.createUser = async (req, res) => {
       $or: [
         { "personalDetails.nationalInsuranceNumber": niNumber },
         { "contactDetails.mobile": mobile },
-        { "contactDetails.email": email }
-      ]
+        { "contactDetails.email": email },
+        {"deleted":true},
+      ],
+     
     });
 
     if (existingUser) {
