@@ -22,7 +22,7 @@ exports.createUser = async (req, res) => {
         { "personalDetails.nationalInsuranceNumber": niNumber },
         { "contactDetails.mobile": mobile },
         { "contactDetails.email": email },
-        {"deleted":true},
+        // {"deleted":true},
       ],
      
     });
