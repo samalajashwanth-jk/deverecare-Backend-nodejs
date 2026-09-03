@@ -203,12 +203,12 @@
 // backend/services/aiService.js
 // backend/services/aiService.js
 
-const Groq = require('groq-sdk');
-require('dotenv').config();
+const Groq = require("groq-sdk");
+require("dotenv").config();
 
-const groq = "";
-// new Groq({ apiKey: process.env.GROQ_API_KEY });
-
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY,
+});
 const parseFilledFormPDF = async (pdfText) => {
   const prompt = `
     You are parsing a COMPLETELY FILLED application form. Extract EVERY field value exactly as it appears.
@@ -291,22 +291,56 @@ const parseFilledFormPDF = async (pdfText) => {
     PDF Text Content:
     ${pdfText.substring(0, 15000)}
   `;
-  
   try {
-    const chatCompletion = await groq.chat.completions.create({
-      messages: [{ role: "user", content: prompt }],
-      model: "llama-3.3-70b-versatile",
-      temperature: 0.05,
-      max_tokens: 8000
-    });
-    
-    let response = chatCompletion.choices[0]?.message?.content;
-    response = response.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-    return JSON.parse(response);
-  } catch (error) {
-    console.error("AI parsing error:", error);
-    return null;
+const completion = await groq.chat.completions.create({
+  model: "openai/gpt-oss-120b",
+  messages: [
+    {
+      role: "system",
+      content:
+        "You extract data from PDF forms and return only valid JSON. Do not include Markdown or explanations.",
+    },
+    {
+      role: "user",
+      content: prompt,
+    },
+  ],
+  temperature: 0,
+});
+
+  // let response = chatCompletion.choices?.[0]?.message?.content;
+let response = completion.choices[0].message.content;
+
+  if (!response) {
+    throw new Error("Groq returned an empty response");
   }
+
+  response = response
+    .replace(/^```json\s*/i, "")
+    .replace(/^```\s*/i, "")
+    .replace(/\s*```$/i, "")
+    .trim();
+
+  return JSON.parse(response);
+} catch (error) {
+  console.error("AI parsing error:", error);
+  throw error;
+}
+  // try {
+  //   const chatCompletion = await groq.chat.completions.create({
+  //     messages: [{ role: "user", content: prompt }],
+  //     model: "llama-3.3-70b-versatile",
+  //     temperature: 0.05,
+  //     max_tokens: 8000
+  //   });
+    
+  //   let response = chatCompletion.choices[0]?.message?.content;
+  //   response = response.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+  //   return JSON.parse(response);
+  // } catch (error) {
+  //   console.error("AI parsing error:", error);
+  //   return null;
+  // }
 };
 
 module.exports = { parseFilledFormPDF };
